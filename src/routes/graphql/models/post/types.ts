@@ -1,5 +1,3 @@
-import { Args } from '../../types/types.js';
-
 export type Post = {
     id: string;
     title: string;
@@ -11,4 +9,3 @@ export type CreatePost = {
     dto: Omit<Post, 'id'>;
 };
 
-export type ChangePost = CreatePost & Args;

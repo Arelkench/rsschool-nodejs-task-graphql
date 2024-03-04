@@ -1,4 +1,4 @@
-import { GraphQLList, GraphQLNonNull, GraphQLResolveInfo } from 'graphql';
+import { GraphQLList, GraphQLNonNull } from 'graphql';
 import { Args, Context } from '../../types/types.js';
 import { UUIDType } from '../../types/uuid.js';
 import { UserType } from './user.type.js';
@@ -10,7 +10,6 @@ export const UserQueries = {
             _parent,
             _args,
             { dataLoader }: Context,
-            info: GraphQLResolveInfo,
         ) => {
             const users = await dataLoader.user.findMany();
             return users;
@@ -23,8 +22,8 @@ export const UserQueries = {
             id: { type: new GraphQLNonNull(UUIDType) },
         },
         resolve: async (_, { id }: Args, { dataLoader }: Context) => {
-            return await dataLoader.user.findUnique({
-                where: { id },
+            return dataLoader.user.findUnique({
+                where: {id},
             });
         },
     },
